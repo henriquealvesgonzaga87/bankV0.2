@@ -15,10 +15,13 @@ while True:
         income = float(input('type the amount: '))
         print(deposit(income, estatement_list))
         balance_available += income
+        continue
     elif option == 2:
         outcome = float(input('Type the amount: '))
-        print(withdraw(value=outcome, statement=balance_available,
-                       limit_withdraw=NUMBER_WITHDRAW, limit_amount=total_withdraw, register=estatement_list))
+        if outcome <= balance_available and NUMBER_WITHDRAW > 0:
+            print(withdraw(value=outcome, statement=balance_available,
+                           limit_withdraw=NUMBER_WITHDRAW, limit_amount=total_withdraw, register=estatement_list))
+            balance_available -= outcome
     elif option == 3:
         if len(estatement_list) == 0:
             print("You don't have any operations to show yet!")
