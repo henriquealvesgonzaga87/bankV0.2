@@ -17,18 +17,42 @@ while True:
         balance_available += income
         continue
     elif option == 2:
-        outcome = float(input('Type the amount: '))
-        if outcome <= balance_available and NUMBER_WITHDRAW > 0:
-            print(withdraw(value=outcome, statement=balance_available,
-                           limit_withdraw=NUMBER_WITHDRAW, limit_amount=total_withdraw, register=estatement_list))
-            balance_available -= outcome
+        outcome = int(input('Type how much for the withdraw: '))
+        if NUMBER_WITHDRAW == 0:
+            print(limit_total_withdraw())
+            continue
+        if total_withdraw == 0:
+            print(limit_amount_withdraw())
+            continue
+        if outcome > 500:
+            print(more_than_maximun_allowed())
+            continue
+        if outcome > balance_available:
+            print(less_than_available())
+            continue
+        if outcome <= 0:
+            print(less_than_zero())
+            continue
+        else:
+            if outcome <= total_withdraw:
+                if total_withdraw > 0:
+                    accepted_withdraw = withdraw(value=outcome, statement=balance_available,
+                                                 limit_amount=total_withdraw, limit_withdraw=NUMBER_WITHDRAW,
+                                                 register=estatement_list)
+                    balance_available -= outcome
+                    total_withdraw -= outcome
+                    NUMBER_WITHDRAW -= 1
+                    print(total_withdraw)
+                else:
+                    print(limit_amount_withdraw())
+            continue
     elif option == 3:
         if len(estatement_list) == 0:
             print("You don't have any operations to show yet!")
         for i in estatement_list[0]:
-            print(f"Deposit: {i} €")
+            print(f"Deposit: {i:.2f} €")
         for i in estatement_list[1]:
-            print(f"Withdraw: {i} €")
+            print(f"Withdraw: {i:.2f} €")
         print(f"Total availabe: {balance_available:.2f} €")
     elif option == 4:
         print('Thank you for being our client! See you soon!')
