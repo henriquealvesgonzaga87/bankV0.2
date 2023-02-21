@@ -47,13 +47,7 @@ while True:
                     print(limit_amount_withdraw())
             continue
     elif option == 3:
-        if len(estatement_list) == 0:
-            print("You don't have any operations to show yet!")
-        for i in estatement_list[0]:
-            print(f"Deposit: {i:.2f} €")
-        for i in estatement_list[1]:
-            print(f"Withdraw: {i:.2f} €")
-        print(f"Total availabe: {balance_available:.2f} €")
+        statement_account(balance_available, summary=estatement_list)
     elif option == 4:
         print('Thank you for being our client! See you soon!')
         break

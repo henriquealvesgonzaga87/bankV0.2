@@ -32,3 +32,13 @@ def withdraw(*, value, statement, limit_amount, limit_withdraw, register):
     statement -= value
     register[1].append(value)
     return statement
+
+
+def statement_account(available, *, summary):
+    if len(summary) == 0:
+        print("You don't have any operations to show yet!")
+    for i in summary[0]:
+        print(f"Deposit: {i:.2f} €")
+    for i in summary[1]:
+        print(f"Withdraw: {i:.2f} €")
+    print(f"Total availabe: {available:.2f} €")
