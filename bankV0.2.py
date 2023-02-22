@@ -1,22 +1,39 @@
 from functions import *
-menu = '''1 - deposit
-2 - withdraw
-3 - statement
-4 - exit
+from account import *
+menu = '''1 - register client
+2 - deposit
+3 - withdraw
+4 - statement
+5 - exit
 '''
 balance_available = 0
 total_withdraw = 500
 NUMBER_WITHDRAW = 3
 estatement_list = [[], []]
+tax_number_register = []
+client_register = []
 while True:
     print(menu)
     option = int(input('Choose one operation: '))
     if option == 1:
+        print('Registering Client')
+        test_tax_number = int(input('Tax Number (numbers only): '))
+        if test_tax_number not in tax_number_register:
+            tax_number_register.append(test_tax_number)
+            client_register.append(test_tax_number)
+            client_data = register_client(client=client_register)
+            client_register.append(client_data)
+            print(client_register)
+            continue
+        else:
+            print('Already registered')
+            continue
+    if option == 2:
         income = float(input('type the amount: '))
         print(deposit(income, estatement_list))
         balance_available += income
         continue
-    elif option == 2:
+    elif option == 3:
         outcome = int(input('Type how much for the withdraw: '))
         if NUMBER_WITHDRAW == 0:
             print(limit_total_withdraw())
@@ -42,13 +59,12 @@ while True:
                     balance_available -= outcome
                     total_withdraw -= outcome
                     NUMBER_WITHDRAW -= 1
-                    print(total_withdraw)
                 else:
                     print(limit_amount_withdraw())
             continue
-    elif option == 3:
-        statement_account(balance_available, summary=estatement_list)
     elif option == 4:
+        statement_account(balance_available, summary=estatement_list)
+    elif option == 5:
         print('Thank you for being our client! See you soon!')
         break
     else:
