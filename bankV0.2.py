@@ -12,6 +12,10 @@ NUMBER_WITHDRAW = 3
 estatement_list = [[], []]
 tax_number_register = []
 client_register = []
+all_clients = []
+data_account = []
+account_number = 1
+AGENCY_NUMBER = "0001"
 while True:
     print(menu)
     option = int(input('Choose one operation: '))
@@ -23,11 +27,26 @@ while True:
             client_register.append(test_tax_number)
             client_data = register_client(client=client_register)
             client_register.append(client_data)
-            print(client_register)
+            account = create_account(n_account=account_number, n_agency=AGENCY_NUMBER)
+            client_register.append(account)
+            all_clients.append(client_register)
+            account_number += 1
             continue
         else:
             print('Already registered')
-            continue
+            create_another_account = str(input("Do you wanna create another account? [Y/N]: ")).strip().upper()
+            if create_another_account not in 'yYnN':
+                create_another_account = str(input("Do you wanna create another account? [Y/N]: ")).strip().upper()
+            else:
+                if create_another_account == 'Y':
+                    another_account = create_account(n_account=account_number, n_agency=AGENCY_NUMBER)
+                    all_clients.append(another_account)
+                    account_number += 1
+                    client_register.clear()
+                    continue
+                else:
+                    client_register.clear()
+                    continue
     if option == 2:
         income = float(input('type the amount: '))
         print(deposit(income, estatement_list))

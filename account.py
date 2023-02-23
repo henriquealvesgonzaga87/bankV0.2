@@ -12,3 +12,8 @@ def register_client(*, client):
     client.append(birth_day)
     client.append(address)
     return client
+
+
+def create_account(*, n_account, n_agency):
+    data_account = [n_account, n_agency]
+    return data_account
